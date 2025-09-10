@@ -103,7 +103,7 @@
                 @endif
 
                 <!-- Related Projects -->
-                @if($relatedProjects->count() > 0)
+                <!-- @if($relatedProjects->count() > 0)
                 <div class="related-projects mt-5">
                     <div class="pbmit-heading animation-style2">
                         <h2 class="pbmit-title">Related Projects</h2>
@@ -126,7 +126,7 @@
                         @endforeach
                     </div>
                 </div>
-                @endif
+                @endif -->
 
                 <!-- Overview -->
                 <div class="pbmit-short-description">
