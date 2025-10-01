@@ -6,7 +6,7 @@ use App\Http\Controllers\Website\TeamController;
 use App\Http\Controllers\Website\ServicesController;
 use App\Http\Controllers\Website\ContactController;
 use App\Http\Controllers\Website\BlogFrontendController;
-use App\Http\Controllers\Website\PortfolioController; // Add this
+use App\Http\Controllers\Website\PortfolioController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AdminPanel\CategoryController;
 use App\Http\Controllers\AdminPanel\BlogController;
@@ -51,6 +51,6 @@ Route::middleware('auth')->group(function () {
     // Portfolio Categories (Admin)
     Route::resource('portfolio-categories', PortfolioCategoryController::class);
     
-    // Projects (Admin)
+    // Projects (Admin) - Make sure this is properly defined
     Route::resource('projects', ProjectController::class);
 });
