@@ -8,11 +8,11 @@
                         <div class="textwidget">
                             <ul class="pbmit-social-links">
                                 <li class="pbmit-social-li pbmit-social-facebook">
-                                    <a title="Facebook" href="#" target="_blank">
+                                    <a title="Facebook" href="https://www.facebook.com/profile.php?id=100040721897212" target="_blank">
                                         <span><i class="pbmit-base-icon-facebook-f"></i></span>
                                     </a>
                                 </li>
-                                <li class="pbmit-social-li pbmit-social-twitter">
+                                <!-- <li class="pbmit-social-li pbmit-social-twitter">
                                     <a title="Twitter" href="#" target="_blank">
                                         <span><i class="pbmit-base-icon-twitter-2"></i></span>
                                     </a>
@@ -26,7 +26,7 @@
                                     <a title="Instagram" href="#" target="_blank">
                                         <span><i class="pbmit-base-icon-instagram"></i></span>
                                     </a>
-                                </li>
+                                </li> -->
                             </ul>
                         </div>
                     </aside>

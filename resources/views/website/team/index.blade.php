@@ -4,32 +4,30 @@
 
 @section('content')
 <!-- Page Banner -->
-	<div class="pbmit-title-bar-wrapper">
-		<div class="container">
-			<div class="pbmit-title-bar-content">
-				<div class="pbmit-title-bar-content-inner">
-					<div class="pbmit-tbar">
-						<div class="pbmit-tbar-inner container">
-							<h1 class="pbmit-tbar-title"> Our Team</h1>
-						</div>
-					</div>
-					<div class="pbmit-breadcrumb">
-						<div class="pbmit-breadcrumb-inner">
-							<span>
-								<a title="" href="#" class="home"><span>SS Interior</span></a>
-							</span>
-							<span class="sep">
-								<i class="pbmit-base-icon-angle-right"></i>
-							</span>
-							<span><span class="post-root post post-post current-item"> Our Team</span></span>
-						</div>
-					</div>
-				</div>
-			</div> 
-		</div> 
-	</div>
-
-
+<div class="pbmit-title-bar-wrapper">
+    <div class="container">
+        <div class="pbmit-title-bar-content">
+            <div class="pbmit-title-bar-content-inner">
+                <div class="pbmit-tbar">
+                    <div class="pbmit-tbar-inner container">
+                        <h1 class="pbmit-tbar-title">Our Team</h1>
+                    </div>
+                </div>
+                <div class="pbmit-breadcrumb">
+                    <div class="pbmit-breadcrumb-inner">
+                        <span>
+                            <a title="" href="{{ route('home') }}" class="home"><span>SS Interior</span></a>
+                        </span>
+                        <span class="sep">
+                            <i class="pbmit-base-icon-angle-right"></i>
+                        </span>
+                        <span><span class="post-root post post-post current-item">Our Team</span></span>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div> 
+</div>
 
 <!-- Team Structure -->
 <section class="section-md">
@@ -40,219 +38,41 @@
         </div>
 
         <div class="team-hierarchy">
-            <!-- Founder & CEO -->
-            <div class="team-level text-center mb-5">
-                <h3 class="level-title">Founder & CEO</h3>
-                <div class="d-flex justify-content-center flex-wrap gap-4">
-                    <div class="team-member">
-                        <div class="rounded-avatar">
-                            <img src="{{ asset('public/images/team/founder.jpg') }}" alt="Saidur Rahman" onerror="this.onerror=null; this.src='https://via.placeholder.com/150x150/bb9a65/ffffff?text=SR'">
+            @foreach($positionLevels as $levelKey => $levelTitle)
+                @if(isset($teams[$levelKey]) && $teams[$levelKey]->count() > 0)
+                    <div class="team-level text-center mb-5">
+                        <h3 class="level-title">{{ $levelTitle }}</h3>
+
+                        <div class="d-flex flex-wrap justify-content-center gap-4">
+                            @foreach($teams[$levelKey] as $member)
+                                <div class="team-member text-center">
+                                    {{-- Image or initials --}}
+                                    @if($member->image)
+                                        <div class="rounded-avatar">
+                                            <img src="{{ asset('public/images/' . $member->image) }}" alt="{{ $member->name }}" 
+                                                 onerror="this.onerror=null; this.src='https://via.placeholder.com/150x150/bb9a65/ffffff?text={{ substr($member->name,0,2) }}'">
+                                        </div>
+                                    @else
+                                        <div class="square-avatar">{{ $member->name }}</div>
+                                    @endif
+
+                                    {{-- Name and designation --}}
+                                    <h5 class="member-name">{{ $member->name }}</h5>
+                                    <p>{{ $member->designation }}</p>
+
+                                    {{-- Qualifications --}}
+                                    @if($member->qualifications)
+                                        @php
+                                            $qualifications = is_array($member->qualifications) ? $member->qualifications : json_decode($member->qualifications, true);
+                                        @endphp
+                                        <p>{{ implode(' | ', $qualifications) }}</p>
+                                    @endif
+                                </div>
+                            @endforeach
                         </div>
-                        <h5 class="member-name">Saidur Rahman</h5>
-                        <p>Founder & CEO</p>
                     </div>
-                </div>
-            </div>
-
-            <!-- Senior Advisor -->
-            <div class="team-level text-center mb-5">
-                <h3 class="level-title">Senior Advisor</h3>
-                <div class="d-flex justify-content-center flex-wrap gap-4">
-                    <div class="team-member">
-                        <div class="square-avatar">Tansen Alam</div>
-                        <!-- <h5 class="member-name">Tansen Alam</h5> -->
-                         <br>
-                        <p>Architect, Titas Gas TDCL</p>
-                        <p>Adj Faculty, AUST</p>
-                        <p>M.Arch (BUET), B.Arch (BUET)</p>
-                    </div>
-                    <div class="team-member">
-                        <div class="square-avatar">Md. Selim Ahmed</div>
-                        <!-- <h5 class="member-name">Md. Selim Ahmed</h5> -->
-                         <br>
-                        <p>Architect B (Arch)</p>
-                        <p>Member IAB: A-256</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Principal Architect -->
-            <div class="team-level text-center mb-5">
-                <h3 class="level-title">Principal Architect</h3>
-                <div class="d-flex justify-content-center flex-wrap gap-4">
-                    <div class="team-member">
-                        <div class="rounded-avatar">
-                            <img src="{{ asset('public/images/team/principal-architect.jpg') }}" alt="Tasmia Jaman" onerror="this.onerror=null; this.src='https://via.placeholder.com/150x150/bb9a65/ffffff?text=TJ'">
-                        </div>
-                        <h5 class="member-name">Tasmia Jaman</h5>
-                        <p>Principal Architect</p>
-                        <p>B.Arch (KMU)</p>
-                        <p>Member IAB: J-039</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Associate Architects -->
-            <div class="team-level text-center mb-5">
-                <h3 class="level-title">Associate Architects</h3>
-                <div class="d-flex justify-content-center flex-wrap gap-4">
-                    <div class="team-member">
-                        <div class="square-avatar">Abdullahil Hadi</div>
-                        <!-- <h5 class="member-name">Abdullahil Hadi</h5> -->
-                        <p>Associate Architect</p>
-                        <p>B.Arch (KU)</p>
-                    </div>
-                    <div class="team-member">
-                        <div class="square-avatar">Farjana Sarkar</div>
-                        <!-- <h5 class="member-name">Farjana Sarkar</h5> -->
-                        <p>Associate Architect</p>
-                        <p>B.Arch (HSTU)</p>
-                    </div>
-                    <div class="team-member">
-                        <div class="square-avatar">Mursheduzzaman</div>
-                        <!-- <h5 class="member-name">Mursheduzzaman</h5> -->
-                        <p>Associate Architect</p>
-                        <p>B.Arch</p>
-                    </div>
-                    <div class="team-member">
-                        <div class="square-avatar">Kamruzzaman Antor</div>
-                        <!-- <h5 class="member-name">Kamruzzaman Antor</h5> -->
-                        <p>Associate Architect</p>
-                        <p>B.Arch</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Structural Engineers -->
-            <div class="team-level text-center mb-5">
-                <h3 class="level-title">Structural Engineers</h3>
-                <div class="d-flex justify-content-center flex-wrap gap-4">
-                    <div class="team-member">
-                        <div class="square-avatar">Gazi Nazmul Haque</div>
-                        <!-- <h5 class="member-name">Gazi Nazmul Haque</h5> -->
-                        <p>Architect, Titas Gas TDCL</p>
-                        <p>BSC in Civil</p>
-                        <p>MSC in Civil</p>
-                    </div>
-                    <div class="team-member">
-                        <div class="square-avatar">Md. Selim Ahmed</div>
-                        <!-- <h5 class="member-name">Md. Selim Ahmed</h5> -->
-                        <p>Architect (B.Arch)</p>
-                        <p>Member IAB: A-256</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Civil Engineers -->
-            <div class="team-level text-center mb-5">
-                <h3 class="level-title">Civil Engineers</h3>
-                <div class="d-flex justify-content-center flex-wrap gap-4">
-                    <div class="team-member">
-                        <div class="square-avatar">Md. Moniruzzaman</div>
-                        <!-- <h5 class="member-name">Md. Moniruzzaman</h5> -->
-                        <p>BSC in Civil</p>
-                    </div>
-                    <div class="team-member">
-                        <div class="square-avatar">Ferdous Kabir Himel</div>
-                        <!-- <h5 class="member-name">Ferdous Kabir Himel</h5> -->
-                        <p>BSC in Civil</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Mechanical Engineers -->
-            <div class="team-level text-center mb-5">
-                <h3 class="level-title">Mechanical Engineers</h3>
-                <div class="d-flex justify-content-center flex-wrap gap-4">
-                    <div class="team-member">
-                        <div class="square-avatar">Md. Faysal Hossain</div>
-                        <!-- <h5 class="member-name">Md. Faysal Hossain</h5> -->
-                        <p>BSC in EEE</p>
-                    </div>
-                    <div class="team-member">
-                        <div class="square-avatar">Md. Jahirul Islam</div>
-                        <!-- <h5 class="member-name">Md. Jahirul Islam</h5> -->
-                        <p>BSC in EEE</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Management Team -->
-            <div class="team-level text-center mb-5">
-                <h3 class="level-title">Management Team</h3>
-                <div class="d-flex justify-content-center flex-wrap gap-4">
-                    <div class="team-member">
-                        <div class="square-avatar">Mehedi Hasan</div>
-                        <!-- <h5 class="member-name">Mehedi Hasan</h5> -->
-                        <p>BA, MA (Dhaka University)</p>
-                        <p>Head of Management</p>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-center flex-wrap gap-4 mt-4">
-                    <div class="team-member">
-                        <div class="square-avatar">Sagor Ahmed</div>
-                        <!-- <h5 class="member-name">Sagor Ahmed</h5> -->
-                        <p>Manager</p>
-                    </div>
-                    <div class="team-member">
-                        <div class="square-avatar">Pranto</div>
-                        <!-- <h5 class="member-name">Pranto</h5> -->
-                        <p>Assistant Manager</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Operation Team -->
-            <div class="team-level text-center mb-5">
-                <h3 class="level-title">Operation Team</h3>
-                <div class="d-flex justify-content-center flex-wrap gap-4 mb-3">
-                    <!-- <div class="team-member">
-                        <div class="square-avatar">Pianto</div>
-                        <h5 class="member-name">Pianto</h5>
-                        <p>Assistant Manager</p>
-                    </div> -->
-                    <div class="team-member">
-                        <div class="square-avatar">Sumon Miah</div>
-                        <!-- <h5 class="member-name">Sumon Miah</h5> -->
-                        <p>Supervisor (Project)</p>
-                    </div>
-                    <div class="team-member">
-                        <div class="square-avatar">Moshur Ahmed</div>
-                        <!-- <h5 class="member-name">Moshur Ahmed</h5> -->
-                        <p>Supervisor (Carpenter)</p>
-                    </div>
-                    <div class="team-member">
-                        <div class="square-avatar">Juwel Ahmed</div>
-                        <!-- <h5 class="member-name">Juwel Ahmed</h5> -->
-                        <p>Supervisor (Thai & Plumbing)</p>
-                    </div>
-                    <div class="team-member">
-                        <div class="square-avatar">Khairul Islam</div>
-                        <!-- <h5 class="member-name">Khairul Islam</h5> -->
-                        <p>Supervisor (Paint)</p>
-                    </div>
-                    <div class="team-member">
-                        <div class="square-avatar">Shahabuddin</div>
-                        <!-- <h5 class="member-name">Shahabuddin</h5> -->
-                        <p>Supervisor (Civil & Structural)</p>
-                    </div>
-                    <div class="team-member">
-                        <div class="square-avatar">Sumon Ahmed</div>
-                        <!-- <h5 class="member-name">Sumon Ahmed</h5> -->
-                        <p>Supervisor (Paint & Hardware)</p>
-                    </div>
-                    <div class="team-member">
-                        <div class="square-avatar">Jabed Ahmed</div>
-                        <!-- <h5 class="member-name">Jabed Ahmed</h5> -->
-                        <p>Supervisor (Electric)</p>
-                    </div>
-                    <div class="team-member">
-                        <div class="square-avatar">Monir</div>
-                        <!-- <h5 class="member-name">Monir</h5> -->
-                        <p>Supervisor (Tiles & Granite)</p>
-                    </div>
-                </div>
-            </div>
+                @endif
+            @endforeach
         </div>
     </div>
 </section>

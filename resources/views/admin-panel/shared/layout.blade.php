@@ -132,6 +132,14 @@
             <span>Portfolio Categories</span>
         </a>
     </li>
+    
+    <li class="nav-item">
+        <a href="{{ route('projects.create') }}" 
+        class="nav-link {{ request()->is('admin/projects/create') ? 'active' : '' }}">
+        <i class="fa fa-plus-circle nav-link-icon"></i>
+        <span>Create Project</span>
+    </a>
+</li>
 
     <li class="nav-item">
         <a href="{{ route('projects.index') }}" 
@@ -141,13 +149,15 @@
         </a>
     </li>
 
-    <li class="nav-item">
-        <a href="{{ route('projects.create') }}" 
-           class="nav-link {{ request()->is('admin/projects/create') ? 'active' : '' }}">
-            <i class="fa fa-plus-circle nav-link-icon"></i>
-            <span>Create Project</span>
-        </a>
-    </li>
+<li class="nav-item">
+    <a class="nav-link {{ request()->is('admin/team*') ? 'active' : '' }}" 
+       href="{{ route('admin.team.index') }}">
+        <i class="fa fa-users nav-link-icon"></i>
+        <span>Team Management</span>
+    </a>
+</li>
+
+
 
     <!-- Contact Requests -->
     <li class="nav-item">

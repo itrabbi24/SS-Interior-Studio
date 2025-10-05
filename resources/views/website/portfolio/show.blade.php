@@ -45,7 +45,7 @@
         <div class="container">
             <article class="portfolio-single">
 
-              <!-- Project Info -->
+                <!-- Project Info -->
                 <div class="pbmit-single-project-details-list">
                     <h3>Project info</h3>
                     <div class="pbmit-portfolio-lines-wrapper">
@@ -98,49 +98,237 @@
                 <!-- Featured Image -->
                 @if($project->thumbnail)
                 <div class="pbmit-featured-img-wrapper mt-4">
-                    <img src="{{ asset('public/'.$project->thumbnail) }}" class="w-100" alt="{{ $project->name }}">
+                    <img src="{{ asset('public/'.$project->thumbnail) }}" class="w-100 img-fluid" alt="{{ $project->name }}" style="max-height: 600px; object-fit: cover;">
                 </div>
                 @endif
 
-                <!-- Related Projects -->
-                <!-- @if($relatedProjects->count() > 0)
-                <div class="related-projects mt-5">
-                    <div class="pbmit-heading animation-style2">
-                        <h2 class="pbmit-title">Related Projects</h2>
-                    </div>
-                    <div class="row">
-                        @foreach($relatedProjects as $relatedProject)
-                        <div class="col-md-4 mb-4">
-                            <div class="related-project-item">
-                                <a href="{{ route('portfolio.detail', $relatedProject->id) }}">
-                                    @if($relatedProject->thumbnail)
-                                    <img src="{{ asset($relatedProject->thumbnail) }}" class="img-fluid" alt="{{ $relatedProject->name }}">
-                                    @else
-                                    <img src="{{ asset('images/default-thumbnail.jpg') }}" class="img-fluid" alt="{{ $relatedProject->name }}">
-                                    @endif
-                                    <h4 class="mt-3">{{ $relatedProject->name }}</h4>
-                                    <p>{{ $relatedProject->category->name }}</p>
-                                </a>
-                            </div>
-                        </div>
-                        @endforeach
-                    </div>
-                </div>
-                @endif -->
-
                 <!-- Overview -->
-                <div class="pbmit-short-description">
+                <div class="pbmit-short-description mt-4">
                     <h3>Overview</h3>
-                    {!! $project->details !!}
+                    <div class="project-content">
+                        {!! $project->details !!}
+                    </div>
                 </div>
 
-              
+                <!-- Responsive Content Styling -->
+                <style>
+                    /* Base responsive styles */
+                    .project-content {
+                        width: 100%;
+                        overflow: hidden;
+                    }
+
+                    /* Image responsiveness */
+                    .project-content img {
+                        max-width: 100%;
+                        height: auto;
+                        display: block;
+                        margin: 1rem 0;
+                    }
+
+                    /* Text content responsiveness */
+                    .project-content p {
+                        word-wrap: break-word;
+                        overflow-wrap: break-word;
+                        line-height: 1.6;
+                        margin-bottom: 1rem;
+                    }
+
+                    .project-content h1,
+                    .project-content h2,
+                    .project-content h3,
+                    .project-content h4,
+                    .project-content h5,
+                    .project-content h6 {
+                        word-wrap: break-word;
+                        margin: 1.5rem 0 1rem 0;
+                        line-height: 1.3;
+                    }
+
+                    .project-content ul,
+                    .project-content ol {
+                        padding-left: 1.5rem;
+                        margin-bottom: 1rem;
+                    }
+
+                    .project-content li {
+                        margin-bottom: 0.5rem;
+                        word-wrap: break-word;
+                    }
+
+                    /* Table responsiveness */
+                    .project-content table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        margin: 1rem 0;
+                        overflow-x: auto;
+                        display: block;
+                    }
+
+                    .project-content th,
+                    .project-content td {
+                        padding: 0.75rem;
+                        border: 1px solid #dee2e6;
+                        text-align: left;
+                    }
+
+                    /* Iframe and embedded content */
+                    .project-content iframe,
+                    .project-content video,
+                    .project-content embed {
+                        max-width: 100%;
+                        height: auto;
+                    }
+
+                    /* Mobile-first responsive design */
+                    @media (max-width: 768px) {
+                        .pbmit-single-project-details-list {
+                            margin-bottom: 1.5rem;
+                        }
+                        
+                        .pbmit-portfolio-lines-ul {
+                            padding-left: 0;
+                        }
+                        
+                        .pbmit-portfolio-line-li {
+                            display: flex;
+                            flex-direction: column;
+                            margin-bottom: 0.75rem;
+                            padding: 0.5rem 0;
+                            border-bottom: 1px solid #f0f0f0;
+                        }
+                        
+                        .pbmit-portfolio-line-title {
+                            font-weight: 600;
+                            margin-bottom: 0.25rem;
+                            color: #333;
+                        }
+                        
+                        .pbmit-portfolio-line-value {
+                            color: #666;
+                        }
+                        
+                        .project-content h1 {
+                            font-size: 1.75rem;
+                        }
+                        
+                        .project-content h2 {
+                            font-size: 1.5rem;
+                        }
+                        
+                        .project-content h3 {
+                            font-size: 1.25rem;
+                        }
+                        
+                        .project-content h4 {
+                            font-size: 1.1rem;
+                        }
+                        
+                        .project-content p {
+                            font-size: 1rem;
+                        }
+                        
+                        .project-content table {
+                            font-size: 0.9rem;
+                        }
+                        
+                        .project-content th,
+                        .project-content td {
+                            padding: 0.5rem;
+                        }
+                    }
+
+                    @media (max-width: 576px) {
+                        .pbmit-tbar-title {
+                            font-size: 1.5rem;
+                            text-align: center;
+                        }
+                        
+                        .pbmit-breadcrumb-inner {
+                            justify-content: center;
+                            flex-wrap: wrap;
+                        }
+                        
+                        .project-content h1 {
+                            font-size: 1.5rem;
+                        }
+                        
+                        .project-content h2 {
+                            font-size: 1.25rem;
+                        }
+                        
+                        .project-content h3 {
+                            font-size: 1.1rem;
+                        }
+                        
+                        .project-content p {
+                            font-size: 0.95rem;
+                        }
+                        
+                        .project-content ul,
+                        .project-content ol {
+                            padding-left: 1rem;
+                        }
+                        
+                        .nav-links {
+                            flex-direction: column;
+                            gap: 1rem;
+                        }
+                        
+                        .nav-previous,
+                        .nav-next {
+                            width: 100%;
+                            text-align: center;
+                        }
+                    }
+
+                    /* Large screens */
+                    @media (min-width: 1200px) {
+                        .project-content {
+                            max-width: 100%;
+                        }
+                        
+                        .project-content img {
+                            max-height: 500px;
+                        }
+                    }
+
+                    /* Print styles */
+                    @media print {
+                        .project-content {
+                            font-size: 12pt;
+                            line-height: 1.4;
+                        }
+                        
+                        .project-content img {
+                            max-width: 100% !important;
+                            height: auto !important;
+                        }
+                    }
+
+                    /* High contrast mode support */
+                    @media (prefers-contrast: high) {
+                        .project-content {
+                            background: white;
+                            color: black;
+                        }
+                    }
+
+                    /* Reduced motion support */
+                    @media (prefers-reduced-motion: reduce) {
+                        .project-content * {
+                            animation-duration: 0.01ms !important;
+                            animation-iteration-count: 1 !important;
+                            transition-duration: 0.01ms !important;
+                        }
+                    }
+                </style>
 
                 <!-- Back to Portfolio -->
                 <nav class="navigation post-navigation mt-5" aria-label="Posts">
                     <div class="nav-links">
                         <div class="nav-previous">
-                            <a href="{{ route('portfolio') }}">
+                            <a href="{{ route('portfolio') }}" class="btn btn-outline-primary">
                                 <span class="pbmit-post-nav-icon">
                                     <i class="pbmit-base-icon-left-arrow-1"></i>
                                     <span class="pbmit-post-nav-head">Back to Portfolio</span>
