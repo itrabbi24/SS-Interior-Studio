@@ -60,12 +60,20 @@
                                     <h5 class="member-name">{{ $member->name }}</h5>
                                     <p>{{ $member->designation }}</p>
 
-                                    {{-- Qualifications --}}
-                                    @if($member->qualifications)
+
+                                        
+                                  @if($member->qualifications)
                                         @php
                                             $qualifications = is_array($member->qualifications) ? $member->qualifications : json_decode($member->qualifications, true);
-                                        @endphp
-                                        <p>{{ implode(' | ', $qualifications) }}</p>
+                                        @endphp 
+                                        <p>
+                                            @foreach($qualifications as $qualification)
+                                                {{ $qualification }}<br>
+                                            @endforeach
+                                        </p>
+
+                        
+
                                     @endif
                                 </div>
                             @endforeach
@@ -178,6 +186,7 @@
     background: #bb9a65;
     color: white;
 }
+
 
 @media (max-width: 768px) {
     .rounded-avatar,
