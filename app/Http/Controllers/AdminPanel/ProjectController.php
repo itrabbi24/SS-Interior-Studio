@@ -10,33 +10,38 @@ use Yajra\DataTables\Facades\DataTables;
 
 class ProjectController extends Controller
 {
-   public function index(Request $request)
+public function index(Request $request)
 {
     if ($request->ajax()) {
-        $data = Project::with('category')->orderBy('id', 'desc');
+        $data = Project::select([
+                'id',
+                'name',
+                'category_id',
+                'client',
+                'project_date'
+            ])
+            ->with(['category' => function($query) {
+                $query->select('id', 'name');
+            }])
+            ->orderBy('id', 'desc');
 
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('category_name', function($row){
                 return $row->category ? $row->category->name : '-';
             })
-            ->addColumn('thumbnail', function($row) {
-                if ($row->thumbnail && file_exists(public_path($row->thumbnail))) {
-                    return '<img src="'.asset('public/'.$row->thumbnail).'" width="50" height="50" style="object-fit: cover;">';
-                }
-                return '<img src="'.asset('images/default-thumbnail.jpg').'" width="50" height="50" style="object-fit: cover;">';
-            })
             ->addColumn('action', function($row){
                 $btn = '<a href="'.route('projects.edit', $row->id).'" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>';
                 $btn .= ' <a href="javascript:void(0)" data-id="'.$row->id.'" class="btn btn-danger btn-sm delete"><i class="fas fa-trash"></i></a>';
                 return $btn;
             })
-            ->rawColumns(['thumbnail', 'action'])
+            ->rawColumns(['action'])
             ->make(true);
     }
 
     return view('admin-panel.projects.index');
 }
+
 
     public function create()
     {
